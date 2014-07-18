@@ -28,10 +28,10 @@ Consider the case, when the probability p_i is so small, that only a small porti
 
 On the other hand if m would be big, then the probability, that selected set, will still be different, even if p_i is quite small is very high.
 
-Let us estimate the respective probabilities:
+The probability of each event can be computed as:
 
-    P( x(i,A) /= x(i,B) ) =      (1-(1-p_i)^m)*(1-2^(-b))
-    P( x(i,A) == x(i,B) ) = 1 - [(1-(1-p_i)^m)*(1-2^(-b))]
+    P(E_i) := P( x(i,A) /= x(i,B) ) =      (1-(1-p_i)^m)*(1-2^(-b))
+    P(F_i) := P( x(i,A) == x(i,B) ) = 1 - [(1-(1-p_i)^m)*(1-2^(-b))]
 
 The first probability is the product of the events that, there is at least one element from the set A\B or B\A in the sample, and the second event, is the probability that there is no hash collision.
 
@@ -43,15 +43,16 @@ can you estimate the parameter m (i.e. the count of distinct elements?).
 
 To be precise, we are looking for the Maximum Likelihood Estimator of m, that is the m - best explaining the observed values for x(i,A) , x(i,B).
 
-Note that: P(x(i,A)==x(i,B)) ist montone decresing, while P(x(i,A)/=x(i,B)) is monotone increasing. Note also that, we assumed the hashfunctions h_i, g_i are independent, hence the probability of intersections events for i ≠ j  will be products of the probabilities of the individual events, e.g.
+Note that: P(x(i,A)==x(i,B)) ist montone decresing with respect to increasing values of m, while P(x(i,A)/=x(i,B)) is monotone increasing. Note also that, we assumed the hashfunctions h_i, g_i are independent, hence the probability of intersections events for i ≠ j  will be products of the probabilities of the individual events, e.g.
 
-    P(x(i,A)==x(i,B) and x(j,A)==x(j,B)) = P(x(i,A)==x(i,B)) * P(x(j,A)==x(j,B)) 
+    P(E_i and E_j) = P(E_i) * P(E_j) 
 or
 
-    P(x(i,A)==x(i,B) and x(j,A)/=x(j,B)) = P(x(i,A)==x(i,B)) * P(x(j,A)/=x(j,B)) 
-
+    P(E_i and F_j) = P(E_i) * P(F_j) 
 and so on ...
 
+    P(F_i and F_j) = P(F_i) * P(F_j) 
+as long as i /= j.
 
 
 
