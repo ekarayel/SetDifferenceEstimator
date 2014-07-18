@@ -19,8 +19,8 @@ for i ∈ {1,..,n}.
 
 Instead of sending all documents, both server send only bn - bits, that is the hashes of
 
-    x(i,A) := h( {x | x ∈ A, g_i(x) <= p_i } )
-    x(i,B) := h( {x | x ∈ B, g_i(x) <= p_i } )
+    x(i,A) := h( { x | x ∈ A, g_i(x) <= p_i } )
+    x(i,B) := h( { x | x ∈ B, g_i(x) <= p_i } )
 
 Note that we have choosen a sequence of probabilities p_1,..,p_n.
 
@@ -43,13 +43,16 @@ can you estimate the parameter m (i.e. the count of distinct elements?).
 
 To be precise, we are looking for the Maximum Likelihood Estimator of m, that is the m - best explaining the observed values for x(i,A) , x(i,B).
 
-Note that: P(x(i,A)==x(i,B)) ist montone decresing, while P(x(i,A)/=x(i,B)) is monotone increasing. Note also that, we assumed the hashfunctions h_i, g_i are independent, hence the probability of intersecting events, e.g.
+Note that: P(x(i,A)==x(i,B)) ist montone decresing, while P(x(i,A)/=x(i,B)) is monotone increasing. Note also that, we assumed the hashfunctions h_i, g_i are independent, hence the probability of intersections events for i ≠ j  will be products of the probabilities of the individual events, e.g.
 
     P(x(i,A)==x(i,B) and x(j,A)==x(j,B)) = P(x(i,A)==x(i,B)) * P(x(j,A)==x(j,B)) 
 or
 
     P(x(i,A)==x(i,B) and x(j,A)/=x(j,B)) = P(x(i,A)==x(i,B)) * P(x(j,A)/=x(j,B)) 
-etc.
+
+and so on ...
+
+
 
 
 
