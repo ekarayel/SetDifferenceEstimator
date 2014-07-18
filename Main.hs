@@ -53,7 +53,8 @@ genSipKeys n = forM ps $ \p ->
        return (p, (k1, k2))
     where
       ps :: [Double]
-      ps = map (1.0 /) $ dropWhile ((<= 2.0)) $ takeWhile (<= (fromIntegral $ n `div` 8)) $ map ((1.1^)) [1..]
+      ps = map (1.0 /) $ dropWhile ((<= 2.0))
+         $ takeWhile (<= (fromIntegral $ n `div` 8)) $ map ((1.1^)) [1..]
 
 instance Random SipKey where
     randomR _ _ = error "T"
