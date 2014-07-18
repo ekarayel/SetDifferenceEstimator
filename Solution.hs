@@ -16,9 +16,10 @@ type ObsHash = Word8
 
 data Observation
     = Observation
-    { obs_probability :: Double -- ^ Every obs_rate element from the server was hashed
+    { obs_probability :: Double
+    -- ^ Probability that a random element would be selected for hashing.
     , obs_serverA :: ObsHash -- ^ Hash received from server A
-    , obs_serverB :: ObsHash -- Hash received from server B
+    , obs_serverB :: ObsHash -- ^ Hash received from server B
     }
     deriving Show
 
