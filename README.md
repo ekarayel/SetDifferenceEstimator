@@ -54,8 +54,7 @@ and so on ...
     P(F_i and F_j) = P(F_i) * P(F_j) 
 as long as i /= j.
 
-
-
+(See also the source file Solution.hs)
 
 
 
