@@ -24,7 +24,9 @@ try nCommon nDistinct =
                , obs_serverA = hA
                , obs_serverB = hB }
            obss = zipWith3 mkObs hAs hBs reqParams
-           estimate = solution obss
+           estimate = solution obss $ 2*(nCommon + nDistinct)
+       putStrLn $ "Comparision                             "
+           ++ zipWith f hAs hBs
        putStrLn $ "Count of transmitted response bytes:    "
            ++ show (length hAs)
        putStrLn $ "Total count of documents:               "
@@ -33,7 +35,8 @@ try nCommon nDistinct =
            ++ (show $ log $ fromIntegral $ 2 * nDistinct) ++ ")"
        putStrLn $ "Guessed count of distinct documents: e^("
            ++ (show $ log $ fromIntegral $ estimate) ++ ")"
-
+    where
+      f x y = if x == y then '=' else '.'
 main =
     do try 1000 10
        try 10000 100
@@ -53,8 +56,8 @@ genSipKeys n = forM ps $ \p ->
        return (p, (k1, k2))
     where
       ps :: [Double]
-      ps = map (1.0 /) $ dropWhile ((<= 2.0))
-         $ takeWhile (<= (fromIntegral $ n `div` 8)) $ map ((1.1^)) [1..]
+      ps = map (1.0 /) $ dropWhile ((<= 4))
+         $ takeWhile (<= (fromIntegral $ n `div` 2)) $ map ((1.1^)) [1..]
 
 instance Random SipKey where
     randomR _ _ = error "T"

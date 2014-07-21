@@ -17,7 +17,7 @@ We have a set of independent hash functions `g₁,..,gₙ` with range `[0;1]` an
 
 for `i ∈ {1,..,n}`.
 
-Instead of sending all documents, both server send only bn - bits, that is the hashes of
+Instead of sending all documents, both servers send only bn - bits, that is the hashes of
 
     x(i,A) := h( { x | x ∈ A, gᵢ(x) ≤ pᵢ } )
     x(i,B) := h( { x | x ∈ B, gᵢ(x) ≤ pᵢ } )
@@ -26,7 +26,7 @@ Note that we have choosen a sequence of probabilities `p₁,..,pₙ`.
 
 Consider the case, when the probability `pᵢ` is so small, that only a small portion of the documents in `A` (resp. `B`) are selected for hashing. (Assuming the set difference m is small, these sets will likely be equal, and hence the hash value.)
 
-On the other hand if m would be big, then the probability, that selected set, will still be different, even if `pᵢ` is quite small is very high.
+On the other hand if m was big, the probability, that the selected set, will still be different, even if `pᵢ` is quite small is very high.
 
 The probability of each event can be computed as:
 
@@ -39,20 +39,38 @@ Given a sequence of observations
 
      p_i, x(i,A), x(i,B)
 
-can you estimate the parameter m (i.e. the count of distinct elements?).
+can you estimate the parameter m (i.e. the count of distinct elements)?
 
 To be precise, we are looking for the Maximum Likelihood Estimator of m, that is the value for `m` - best explaining the observed values for `x(i,A), x(i,B)`.
 
-Note that: `P(x(i,A)= x(i,B))` ist montone decresing with respect to increasing values of `m`, while `P(x(i,A) ≠ x(i,B))` is monotone increasing. Note also that, we assumed the hash functions `hᵢ, gᵢ` are independent, hence the probability of intersections events for `i ≠ j`  will be products of the probabilities of the individual events, e.g.
+Note that: `P(x(i,A) = x(i,B))` is montone decreasing with respect to increasing values of `m`, while `P(x(i,A) ≠ x(i,B))` is monotone increasing. Note also that, we assumed the hash functions `hᵢ, gᵢ` are independent, hence the probability of intersections events for `i ≠ j`  will be products of the probabilities of the individual events, e.g.
 
-    P(Eᵢ ∧ Eⱼ) = P(Eᵢ) P(Eⱼ) 
+    P(Eᵢ ∧ Eⱼ) = P(Eᵢ) P(Eⱼ)
 or
 
-    P(Eᵢ ∧ Fⱼ) = P(Eᵢ) P(Fⱼ) 
+    P(Eᵢ ∧ Fⱼ) = P(Eᵢ) P(Fⱼ)
 and so on ...
 
-    P(Fᵢ ∧ Fⱼ) = P(Fᵢ) * P(Fⱼ) 
+    P(Fᵢ ∧ Fⱼ) = P(Fᵢ) * P(Fⱼ)
 as long as `i ≠ j`.
+
+Hence we can write the probability of an observation as a product of a montone increasing function g and a decreasing function h, i.e.
+    f(m) := g(m) * h(m)
+s.t.
+    g(m) := product { P(Eᵢ) | i ∈ {1..n}, x(i,A) ≠ x(i,B) }
+    h(m) := product { P(Fᵢ) | i ∈ {1..n}, x(i,A) = x(i,B) }
+
+For these functions g, h, we have that
+   g([a;b]) ⊆ [g(a);g(b)]
+and
+   h([a;b]) ⊆ [h(b);h(a)]
+
+while it is not necessarily true that: f([a;b]) ⊆ [f(a);f(b)].
+
+Is it possible to determine bounds for the values of f on a range, i.e. f([a;b]),
+with bounds of the individual functions g and h?
+
+Further note that: Assuming we know that f([a;b]) <= f(x), (with x outside of [a;b]) we can rule out all values within [a;b] as candidates for our maximum likelihood estimator.
 
 (See also the source file Solution.hs)
 

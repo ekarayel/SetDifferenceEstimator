@@ -8,6 +8,7 @@ module Solution
 ----------------------------------------
 import Data.Ratio
 import Data.Bits
+import Data.List
 import Data.Word
 import Safe
 import Debug.Trace
@@ -23,7 +24,9 @@ data Observation
     }
     deriving Show
 
--- | Returns the maximum likelihood estimate for the count of elements
--- that are not on both servers.
-solution :: [Observation] -> Int
-solution obss = 42
+-- | solution obss maxDocuments - returns the maximum likelihood estimate for the count of
+-- elements within [0;maxDocuments] that are not on both servers.
+solution :: [Observation] -> Int -> Int
+solution observations maxDocuments = 42
+
+
