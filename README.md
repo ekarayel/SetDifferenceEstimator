@@ -54,23 +54,24 @@ and so on ...
     P(Fᵢ ∧ Fⱼ) = P(Fᵢ) * P(Fⱼ)
 as long as `i ≠ j`.
 
-Hence we can write the probability of an observation as a product of a montone increasing function g and a decreasing function h, i.e.
+Hence we can write the probability of an observation as a product of a montone increasing function `g` and a decreasing function h, i.e.
+
     f(m) := g(m) * h(m)
 s.t.
+
     g(m) := product { P(Eᵢ) | i ∈ {1..n}, x(i,A) ≠ x(i,B) }
     h(m) := product { P(Fᵢ) | i ∈ {1..n}, x(i,A) = x(i,B) }
 
 For these functions g, h, we have that
-   g([a;b]) ⊆ [g(a);g(b)]
+
+    g([a;b]) ⊆ [g(a);g(b)]
 and
-   h([a;b]) ⊆ [h(b);h(a)]
 
-while it is not necessarily true that: f([a;b]) ⊆ [f(a);f(b)].
+    h([a;b]) ⊆ [h(b);h(a)]
 
-Is it possible to determine bounds for the values of f on a range, i.e. f([a;b]),
-with bounds of the individual functions g and h?
+While it is not necessarily true that: `f([a;b]) ⊆ [f(a);f(b)]`, is it possible to determine bounds for the values of `f` on a range, i.e. `f([a;b])`, with bounds of the individual functions `g` and `h`?
 
-Further note that: Assuming we know that f([a;b]) <= f(x), (with x outside of [a;b]) we can rule out all values within [a;b] as candidates for our maximum likelihood estimator.
+Further note that: Assuming we know that `f([a;b]) <= f(x)`, (with `x` outside of `[a;b]`) we can rule out all values within `[a;b]` as candidates for our maximum likelihood estimator.
 
 (See also the source file Solution.hs)
 
